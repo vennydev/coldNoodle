@@ -225,6 +225,47 @@
           },
         });
       }
+
+      function sign_in() {
+        let username = $("#input-username").val();
+        let password = $("#input-password").val();
+
+        // id 칸이 공백인지 확인
+        if (username == "") {
+          $("#help-id-login").text("아이디를 입력해주세요.");
+          $("#input-username").focus();
+          return;
+        } else {
+          $("#help-id-login").text("");
+        }
+
+        // pw 칸이 공백인지 확인
+        if (password == "") {
+          $("#help-password-login").text("비밀번호를 입력해주세요.");
+          $("#input-password").focus();
+          return;
+        } else {
+          $("#help-password-login").text("");
+        }
+
+        // id,pw 칸이 공백이 아닌걸 확인 후 POST요청
+        $.ajax({
+          type: "POST",
+          url: "/sign_in",
+          data: {
+            username_give: username,
+            password_give: password,
+          },
+          success: function (response) {
+            if (response["result"] == "success") {
+              $.cookie("mytoken", response["token"], { path: "/" });
+              window.location.replace("/");
+            } else {
+              alert(response["msg"]);
+            }
+          },
+        });
+      }
     </script>
   </head>
   <!-- body -->

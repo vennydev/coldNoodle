@@ -59,7 +59,26 @@ def user(username):
 @app.route('/sign_in', methods=['POST'])
 def sign_in():
     # 로그인
-    return jsonify({'result': 'success'})
+    username_receive = request.form['username_give']
+    password_receive = request.form['password_give']
+
+    pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    result = db.users.find_one(
+        {'id': username_receive, 'password': pw_hash})
+    print(result)
+    if result is not None:
+        # 매치되는 username,pw를 찾으면
+        payload = {
+            'id': username_receive,
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
+        }
+        # 시크릿키로 암호화를 해준 뒤 jwt토큰에 넣는다
+        token = jwt.encode(payload, SECRET_KEY,
+                           algorithm='HS256')
+        return jsonify({'result': 'success', 'token': token})
+    # 매치되는 id,pw를 찾지 못 하면
+    else:
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
 @app.route('/sign_up/save', methods=['POST'])
