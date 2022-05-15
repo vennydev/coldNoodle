@@ -70,7 +70,13 @@ def sign_up():
     password_hash = hashlib.sha256(
         password_receive.encode('utf-8')).hexdigest()
     # DB에 저장
-    return jsonify({'result': 'success'})
+    doc = {
+        'id': username_receive,
+        'password': password_hash,
+        'profile_name': username_receive,
+    }
+    db.users.insert_one(doc)
+    return jsonify({'result': '후루룩후루룩'})
 
 
 @app.route('/sign_up/check_dup', methods=['POST'])
