@@ -39,11 +39,11 @@
       }
 
       .hero.is-primary {
-        background-color: rgba(0, 0, 0, 0.9);
+        background-color: #64b5f6;
       }
 
       .box {
-        background-color: rgba(0, 0, 0, 0.9);
+        background-color: #64b4f6da;
       }
       .is-1 {
         text-align: center;
@@ -53,23 +53,47 @@
       .mb-3 {
         color: white;
       }
+
+      .button:hover,
+      .button:focus {
+        background-color: #2286c3;
+        transition: all 0.2s ease;
+        border: none;
+        color: white;
+      }
     </style>
+    <script>
+      function toggle_sign_up() {
+        $("#sign-up-box").toggleClass("is-hidden");
+        $("#title-login").toggleClass("is-hidden");
+        $("#title-signin").toggleClass("is-hidden");
+        $("#div-sign-in-or-up").toggleClass("is-hidden");
+        $("#btn-check-dup").toggleClass("is-hidden");
+        $("#help-id").toggleClass("is-hidden");
+        $("#help-password").toggleClass("is-hidden");
+        $("#help-password2").toggleClass("is-hidden");
+      }
+    </script>
   </head>
+  <!-- body -->
   <body>
     <div class="wrap">
+      <!-- banner -->
       <section class="hero is-primary">
         <div class="hero-body">
-          <p class="subtitle">자신이 비냉파라면?</p>
-          <p class="title">쉿! 조용히 사이트를 닫아주세요.</p>
+          <p class="subtitle">비냉엔 눈길도 안주는 사람들을 위한</p>
+          <p class="title">(물)냉면공작소</p>
         </div>
       </section>
 
+      <!-- box -->
       <section class="section">
         <div class="container">
           <div class="box" style="max-width: 480px">
             <article class="media">
               <div class="media-content">
-                <h1 class="title is-1">Log In</h1>
+                <h1 id="title-login" class="title is-1">Log In</h1>
+                <h1 id="title-signin" class="title is-1 is-hidden">Sign In</h1>
                 <div class="content">
                   <div class="field has-addons">
                     <div class="control has-icons-left" style="width: 100%">
@@ -123,7 +147,7 @@
                     </button>
                   </nav>
                   <hr />
-                  <h4 class="mb-3">아직 회원이 아니라면</h4>
+                  <h4 class="mb-3">아직 회원이 아니세요?</h4>
                   <nav class="level is-mobile">
                     <button
                       class="level-item button is-sparta is-outlined"
@@ -134,13 +158,10 @@
                   </nav>
                 </div>
 
-                <div id="sign-up-box">
+                <div id="sign-up-box" class="is-hidden">
                   <div class="mb-5">
                     <div class="field">
-                      <div
-                        class="control has-icons-left is-hidden"
-                        style="width: 100%"
-                      >
+                      <div class="control has-icons-left" style="width: 100%">
                         <input
                           id="input-password2"
                           class="input"
@@ -158,13 +179,13 @@
                   </div>
                   <nav class="level is-mobile">
                     <button
-                      class="level-item button is-sparta is-hidden"
+                      class="level-item button is-sparta"
                       onclick="sign_up()"
                     >
                       회원가입
                     </button>
                     <button
-                      class="level-item button is-sparta is-outlined is-hidden"
+                      class="level-item button is-sparta is-outlined"
                       onclick="toggle_sign_up()"
                     >
                       취소
