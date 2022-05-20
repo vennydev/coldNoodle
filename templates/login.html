@@ -73,6 +73,7 @@
         $("#help-id").toggleClass("is-hidden");
         $("#help-password").toggleClass("is-hidden");
         $("#help-password2").toggleClass("is-hidden");
+        $("#help-id-login").toggleClass("is-hidden");
       }
 
       //   아이디,비밀번호 정규표현식
@@ -258,6 +259,10 @@
           },
           success: function (response) {
             if (response["result"] == "success") {
+              // 유저의 브라우저는 건네받은 토큰을 쿠키로 저장하여 만료되기 전까지 갖고있으면서, API 요청을 보낼 때마다 쿠키값을 주어 회원임을 확인 받습니다
+              // 서버가 주는 자유이용권 같은 개념
+              //  로그아웃 시 해당토근 삭제
+              // 이 토큰을 "mytoken"이라는 키 값으로 저장을 해줍니다
               $.cookie("mytoken", response["token"], { path: "/" });
               window.location.replace("/");
             } else {
